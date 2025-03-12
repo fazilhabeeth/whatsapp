@@ -1,0 +1,67 @@
+Ex 8: Implement And Demonstrate The Find-S Algorithm For Finding Trhe Most 
+
+Specific Hypothesis Based On A Given Set Of Training Data Samples. Read The 
+
+Training Data From A Csv File
+
+SOURCE CODE :
+
+#Import csv file
+
+import pandas as pd
+
+import numpy as np
+
+#to read the data in the csv file
+
+data = pd.read_csv("S:\DL lab\8thdata.csv")
+
+print(data,"n")
+
+#making an array of all the attributes
+
+d = np.array(data)[:,:-1]
+
+print("\n The attributes are: ",d)
+
+#segragating the target that has positive and negative examples
+
+target = np.array(data)[:,-1]
+
+print("\n The target is: ",target)
+
+#training function to implement find-s algorithm
+
+def train(c,t):
+
+ for i, val in enumerate(t):
+
+ if val == "Yes":
+
+ specific_hypothesis = c[i].copy()
+
+ break
+
+ 
+
+ for i, val in enumerate(c):
+
+ if t[i] == "no":
+
+ for x in range(len(specific_hypothesis)):
+
+ if val[x] != specific_hypothesis[x]:
+
+ specific_hypothesis[x] = '?'
+
+ else: 
+
+pass
+
+ 
+
+ return specific_hypothesis
+
+#obtaining the final hypothesis
+
+print("\n The final hypothesis is:",train(d,target))
