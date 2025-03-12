@@ -1,0 +1,61 @@
+Ex 5: Implement Naive Bayes Theorem To Classify English Text
+
+SOURCE CODE :
+
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
+from sklearn.naive_bayes import MultinomialNB
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.metrics import accuracy_score, classification_report
+
+# Sample dataset
+
+texts = [
+
+ "I love programming", "Python is great", "I hate bugs", "Debugging is fun",
+
+ "I enjoy learning new languages", "Coding is amazing", "Errors are frustrating",
+
+ "Syntax is crucial", "I dislike runtime errors", "I find machine learning fascinating"
+
+]
+
+labels = [1, 1, 0, 0, 1, 1, 0, 1, 0, 1] # 1 for positive, 0 for negative
+
+# Vectorize the text data using TF-IDF
+
+vectorizer = TfidfVectorizer(lowercase=True, stop_words='english')
+
+X = vectorizer.fit_transform(texts)
+
+# Split the data into training and testing sets
+
+X_train, X_test, y_train, y_test = train_test_split(X, labels, test_size=0.25, random_state=42)
+
+# Train the Naive Bayes model
+
+model = MultinomialNB()
+
+model.fit(X_train, y_train)
+
+# Test the model
+
+predictions = model.predict(X_test)
+
+print(f'Predictions: {predictions}')
+
+print(f'Accuracy: {accuracy_score(y_test, predictions):.2f}')
+
+print(f'Classification Report:\n {classification_report(y_test, predictions)}')
+
+# Example of classifying new text
+
+new_text = ["python is great"]
+
+new_text_vectorized = vectorizer.transform(new_text)
+
+prediction = model.predict(new_text_vectorized)
+
+print(f'New text sentiment: {"Positive" if prediction[0] == 1 else "Negative"}')
