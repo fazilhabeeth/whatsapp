@@ -1,0 +1,37 @@
+Ex 2: Implement K Method Nearset Neighbours Classification Using Python
+SOURCE CODE :
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris 
+import random
+# load data
+data_iris=load_iris()
+# to get list to target names
+label_target=data_iris.target_names
+print()
+print("sample data from iris dataset")
+print("*"*30)
+# to display sample data iris dataset 
+for i in range(10):
+ rn=random.randint(0,120)
+ print(data_iris.data[rn],"===>",label_target[data_iris.target[rn]])
+# create feature and target array
+x=data_iris.data
+y=data_iris.target
+# split into traning and test
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.3,random_state=1)
+print("the training dataset length:",len(x_train))
+print("the training dataset length:",len(x_test))
+try:
+ nn=int(input("enter number of neighbors:"))
+ knn=KNeighborsClassifier(nn)
+ knn.fit(x_train,y_train)
+ # to display the score
+ print("the score is:",knn.score(x_test,y_test))
+ test_data=input("enter the data:").split(",") for i in range(len(test_data)):
+ test_data[i]=float(test_data[i])
+ print()
+ v=knn.predict([test_data])
+ print("predict output is :",label_target[v])
+except:
+ print("please supply valid input....")
