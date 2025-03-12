@@ -1,0 +1,29 @@
+Ex 1: Extract The Data From Database Using Python
+
+SOURCE CODE :
+
+import sqlite3
+
+conn=sqlite3.connect('sample.db')
+
+cursor=conn.cursor()
+
+cursor.execute('''create table if not exists teacher(id INTEGER PRIMARYKEY,name TEXT,grade 
+
+INTEGER)''')
+
+cursor.execute('''INSERT INTO 
+
+teacher(id,name,grade)VALUES(1,'JOHN',89),(2,'JAMESH',88),(3,'JULIE',98)''')
+
+conn.commit()
+
+cursor.execute('SELECT*FROM teacher')
+
+rows=cursor.fetchall()
+
+for row in rows:
+
+ print(row)
+
+conn.close()
