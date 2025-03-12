@@ -1,0 +1,47 @@
+Ex 3: Given The Following Data, Which Specify Classifications For Nine 
+
+Combinations Of VAR1 And VAR2 Predict A Classification For A Case Where 
+
+VAR1=0.906 And VAR2=0.606, Using The Result Of K-Means Clustering With 3 
+
+Means (I.E., 3 Centroids)
+
+SOURCE CODE :
+
+from sklearn.cluster import KMeans
+
+import numpy as np
+
+x=np.array([[1.234,1.233],[2.344,2.345],[4.234,5.234],[3.324,3.422]])
+
+y=np.array([0,1,1,0,1,0,1,1,1])
+
+KMeans=KMeans(n_clusters=3,random_state=0).fit(x,y)
+
+print("var1\t var2\t class")
+
+i=0
+
+for val in x:
+
+ print(val[0],"\t",val[1],"\t",y[i])
+
+ i+=1
+
+print("="*20)
+
+print("the test data to predict:")
+
+test_data=[]
+
+var1=float(input("enter value for var1:"))
+
+var2=float(input("enter value for var2:"))
+
+test_data.append(var1)
+
+test_data.append(var2)
+
+print("="*20)
+
+print("the predicted class is:",KMeans.predict([test_data]))
