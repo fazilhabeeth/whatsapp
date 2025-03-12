@@ -1,0 +1,73 @@
+Ex 6: Implement An Algorithm To Demonstrate The Significance Of Genetic 
+
+Algorithm
+
+SOURCE CODE :
+
+import random
+
+pop_size = 200
+
+genes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890!"
+
+target =input( "I loves !")
+
+def calculate_fitness(chromosome):
+
+ return sum(gene != target[i] for i, gene in enumerate(chromosome))
+
+def random_chromosome():
+
+ return [random.choice(genes) for _ in range(len(target))]
+
+def mate(parent1, parent2):
+
+ return [random.choice([gp1, gp2]) if random.random() < 0.9 else random.choice(genes)
+
+ for gp1, gp2 in zip(parent1, parent2)]
+
+def genetic_algorithm():
+
+ # Check if all target genes are in the available genes
+
+ for gene in target:
+
+ if gene not in genes:
+
+ print(f"Gene '{gene}' in target is not in the available genes.")
+
+ return
+
+ population = [random_chromosome() for _ in range(pop_size)]
+
+ generation = 1
+
+ while True:
+
+ population.sort(key=calculate_fitness)
+
+ best = population[0]
+
+ print(f"Generation {generation}: {''.join(best)} | Fitness: {calculate_fitness(best)}")
+
+ 
+
+ if calculate_fitness(best) == 0:
+
+ break
+
+ 
+
+ next_generation = population[:10]
+
+ while len(next_generation) < pop_size:
+
+ parent1, parent2 = random.choices(population[:50], k=2)
+
+ next_generation.append(mate(parent1, parent2))
+
+ population = next_generation
+
+ generation += 1
+
+genetic_algorithm()
